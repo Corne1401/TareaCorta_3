@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/GitHub_Projects/TareaCorta_3/Helpers/FileReader.h
+iostream
+-
+fstream
+-
+
+C:/GitHub_Projects/TareaCorta_3/main.cpp
+iostream
+-
+fstream
+-
+Helpers/FileReader.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/FileReader.h
+
