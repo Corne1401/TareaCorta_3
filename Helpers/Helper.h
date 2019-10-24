@@ -302,7 +302,7 @@ void updateCache(map<int, CacheNode> &cacheMemory, int &index, BSTTree &tree){
 }
 
 
-void deleteClientHelper(const string& fullString, char delimiter, ofstream &file){
+void purgeClientHelper(const string& fullString, char delimiter, ofstream &file){
     string data1;
     string data2;
     string data3;
@@ -354,17 +354,19 @@ void deleteClientHelper(const string& fullString, char delimiter, ofstream &file
     }
 }
 
-void deleteClient(){
+void purgeClient(){
     string line;
     ifstream arch1("../Out/newClients.txt");
     ofstream purgedFile("../Out/purgedClients.txt");
 
     while (getline(arch1, line)) {
         if(!line.empty()){
-            deleteClientHelper(line, ';', purgedFile);
+            purgeClientHelper(line, ';', purgedFile);
         }
     }
     arch1.close();
+    remove("../Out/newClients.txt");
+    rename("../Out/purgedClients.txt", "../Out/newClients.txt");
     
 }
 

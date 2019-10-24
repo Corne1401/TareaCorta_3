@@ -29,7 +29,7 @@ int main() {
         cout << "4) Insert Client" << endl;
         cout << "5) Delete Client" << endl;
         cout << "6) Purge Files" << endl;
-        cout << "5) Exit" << endl;
+        cout << "7) Exit" << endl;
 
         cin >> op;
 
@@ -42,6 +42,10 @@ int main() {
         } else if(op=="4"){
             //TODO
         } else if (op=="5"){
+            //TODO
+        } else if(op=="6"){
+            purgeClient();
+        } else if(op=="7"){
             break;
         }
     }
