@@ -473,7 +473,7 @@ void findClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
     }
 }
 
-void markAsDeletedInFileHelper(){
+void markAsDeletedInFileHelper(const string& fullString, char delimiter, int &index){
 
 }
 
@@ -481,12 +481,10 @@ void markAsDeletedInFileHelper(){
 void markAsDeletedInFile(int &clientId){
     string line;
     ifstream arch1("../Out/newClients.txt");
-    int countLines = 0;
 
     while (getline(arch1, line)) {
         if(!line.empty()){
-            markAsDeletedInFileHelper(line, ';', clientId, countLines);
-            countLines++;
+            markAsDeletedInFileHelper(line, ';', clientId);
         }
     }
     arch1.close();
