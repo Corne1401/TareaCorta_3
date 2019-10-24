@@ -472,3 +472,50 @@ void findClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
         }
     }
 }
+
+void markAsDeletedInFileHelper(){
+
+}
+
+
+void markAsDeletedInFile(int &clientId){
+    string line;
+    ifstream arch1("../Out/newClients.txt");
+    int countLines = 0;
+
+    while (getline(arch1, line)) {
+        if(!line.empty()){
+            markAsDeletedInFileHelper(line, ';', clientId, countLines);
+            countLines++;
+        }
+    }
+    arch1.close();
+}
+
+void deleteClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
+    string clientIdString;
+    while (true){
+        try {
+            cout << "Type Client id to search: " << endl;
+            cin >> clientIdString;
+            int clientId = stoi(clientIdString);
+
+            if(tree.isIdOnTree(tree.root, clientId)){
+                markAsDeletedInFile(clientId);
+
+                //Proceed to re-index tree and cache
+                cacheMemory.clear();
+                tree.deleteTree(tree.root);
+                defaultCacheInit(cacheMemory);
+            } else {
+                cout << "ERROR. No such client with ID: " << clientId << endl;
+            }
+
+
+
+            break;
+        } catch (std::invalid_argument &e){
+
+        }
+    }
+}

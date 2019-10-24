@@ -42,7 +42,7 @@ int main() {
         } else if(op=="4"){
             //TODO
         } else if (op=="5"){
-            //TODO
+            deleteClient(cacheMemory, tree);
         } else if(op=="6"){
             purgeClient();
         } else if(op=="7"){

@@ -13,7 +13,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0cfe9e32-3e05-4ad8-bf4d-57f935c870c9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/BST.h" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/BST.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Helpers/Helper.h" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/Helper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/TareaCorta_3.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/TareaCorta_3.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
