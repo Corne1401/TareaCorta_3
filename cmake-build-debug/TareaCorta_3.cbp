@@ -89,7 +89,7 @@
 		<Unit filename="C:/GitHub_Projects/TareaCorta_3/Helpers/CacheNode.h">
 			<Option target="TareaCorta_3"/>
 		</Unit>
-		<Unit filename="C:/GitHub_Projects/TareaCorta_3/Helpers/MemoryCache.h">
+		<Unit filename="C:/GitHub_Projects/TareaCorta_3/Helpers/simpleList.h">
 			<Option target="TareaCorta_3"/>
 		</Unit>
 		<Unit filename="C:/GitHub_Projects/TareaCorta_3/main.cpp">

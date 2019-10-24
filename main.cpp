@@ -16,7 +16,9 @@ int main() {
     loadBST(tree);
     defaultCacheInit(cacheMemory);
 
-    tree.inorder(tree.root);
+//    tree.inorder(tree.root);
+
+
 
     string op;
     while (true){
@@ -25,6 +27,9 @@ int main() {
         cout << "2) Print Tree Preorder" << endl;
         cout << "3) Print Cache" << endl;
         cout << "4) Insert Client" << endl;
+        cout << "5) Delete Client" << endl;
+        cout << "6) Purge Files" << endl;
+        cout << "5) Exit" << endl;
 
         cin >> op;
 
@@ -37,10 +42,8 @@ int main() {
         } else if(op=="4"){
             //TODO
         } else if (op=="5"){
-            //TODO
+            break;
         }
-
-        break;
     }
 
 

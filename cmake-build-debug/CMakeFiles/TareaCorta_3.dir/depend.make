@@ -5,5 +5,6 @@ CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../Helpers/BST.h
 CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../Helpers/BSTNode.h
 CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../Helpers/CacheNode.h
 CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../Helpers/Helper.h
+CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../Helpers/simpleList.h
 CMakeFiles/TareaCorta_3.dir/main.cpp.obj: ../main.cpp
 

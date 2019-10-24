@@ -34,13 +34,13 @@ private:
     string op;
     node *nextNode;
 
-    friend class list;
+    friend class simpleList;
 };
 
 
-class list{
+class simpleList{
 public:
-    list(){
+    simpleList(){
         firstNode=aux= nullptr;
     }
 
@@ -64,18 +64,46 @@ public:
     void deleteAtStart();
     node *getIndex(int pos);
     void numToList(int num);
+    void clear();
+    void deleteAtEnd();
+    bool isEmpty();
 
 private:
     node *aux;
     node *firstNode;
 
-    bool isEmpty();
+
 
 
 };
 
+void simpleList::clear() {
+    aux = firstNode;
+    while (firstNode!= nullptr){
+        deleteAtEnd();
+    }
+}
 
-void list::appendAtStart(int num) {
+void simpleList::deleteAtEnd(){
+    if(!isEmpty()){
+        if (firstNode->nextNode == nullptr) {
+            firstNode= nullptr;
+        } else {
+
+            aux = firstNode;
+            while (aux->nextNode->nextNode != nullptr) {
+                aux = aux->nextNode;
+
+            }
+            node *temp = aux->nextNode;
+            aux->nextNode= nullptr;
+            delete temp;
+        }
+    }
+}
+
+
+void simpleList::appendAtStart(int num) {
     if(firstNode == nullptr){
         firstNode = new node(num);
     } else {
@@ -83,12 +111,12 @@ void list::appendAtStart(int num) {
     }
 }
 
-void list::appendAtEnd(int num) {
+void simpleList::appendAtEnd(int num) {
     if (firstNode == nullptr){
         firstNode = new node(num);
     } else {
         aux = firstNode;
-        while (aux->nextNode != NULL){
+        while (aux->nextNode != nullptr){
             next();
         }
         aux->nextNode = new node(num);
@@ -96,7 +124,7 @@ void list::appendAtEnd(int num) {
 }
 
 
-int list::dataInPosition(int pos){
+int simpleList::dataInPosition(int pos){
     int i = 0;
     aux = firstNode;
     while(i<pos && aux != nullptr){
@@ -111,7 +139,7 @@ int list::dataInPosition(int pos){
     }
 }
 
-node *list::getIndex(int pos) {
+node *simpleList::getIndex(int pos) {
     int i = 0;
     aux = firstNode;
     while(aux != nullptr){
@@ -126,11 +154,11 @@ node *list::getIndex(int pos) {
 
 
 
-void list::next(){
+void simpleList::next(){
     aux = aux->nextNode;
 }
 
-void list::evenDigits(int num) {
+void simpleList::evenDigits(int num) {
     while (num!=0){
         int x = num%10;
         num/=10;
@@ -147,7 +175,7 @@ void list::evenDigits(int num) {
     cout << "Number of even digits is: " << evenCount;
 }
 
-void list::number1(int num) {
+void simpleList::number1(int num) {
     while (num!=0){
         int x = num%10;
         num/=10;
@@ -167,7 +195,7 @@ void list::number1(int num) {
     cout << res/count << endl;
 }
 
-int list::listSize() {
+int simpleList::listSize() {
     aux = firstNode;
     int count = 0;
     while (aux!=nullptr){
@@ -177,7 +205,7 @@ int list::listSize() {
     return count;
 }
 
-void list::printList() {
+void simpleList::printList() {
     aux = firstNode;
     while (aux!=nullptr){
         cout << aux->number << "->";
@@ -186,10 +214,10 @@ void list::printList() {
 }
 
 
-void list::number2(int num1, int num2) {
-    list list1;
-    list list2;
-    list list3;
+void simpleList::number2(int num1, int num2) {
+    simpleList list1;
+    simpleList list2;
+    simpleList list3;
 
     while (num1!=0){
         int x = num1%10;
@@ -218,10 +246,10 @@ void list::number2(int num1, int num2) {
 
 
 
-void list::tareaOpcional(int num1, int num2) {
-    list list1;
-    list list2;
-    list list3;
+void simpleList::tareaOpcional(int num1, int num2) {
+    simpleList list1;
+    simpleList list2;
+    simpleList list3;
 
     if (numSize(num1)==numSize(num2)){
         while (num1!=0){
@@ -259,7 +287,7 @@ void list::tareaOpcional(int num1, int num2) {
     list3.printList();
 }
 
-int list::numSize(int num) {
+int simpleList::numSize(int num) {
     int i = 0;
     if (num == 0){
         return 1;
@@ -272,7 +300,7 @@ int list::numSize(int num) {
     }
 }
 
-bool list::findByElement(int num) {
+bool simpleList::findByElement(int num) {
     aux = firstNode;
     bool found = false;
     while (aux!= nullptr){
@@ -285,7 +313,7 @@ bool list::findByElement(int num) {
     return found;
 }
 
-bool list::findByElAndPos(int index, int num) {
+bool simpleList::findByElAndPos(int index, int num) {
     bool found = false;
 
     int i = 0;
@@ -307,7 +335,7 @@ bool list::findByElAndPos(int index, int num) {
     return found;
 }
 
-void list::flipList() {
+void simpleList::flipList() {
     node *temp = nullptr;
     while (firstNode != nullptr){
         firstNode = firstNode->nextNode;
@@ -318,11 +346,11 @@ void list::flipList() {
     firstNode = aux;
 }
 
-bool list::isEmpty() {
+bool simpleList::isEmpty() {
     return firstNode == nullptr;
 }
 
-void list::deleteInPos(int pos) {
+void simpleList::deleteInPos(int pos) {
     if(listSize()==1 || pos==0){
         deleteAtStart();
     } else {
@@ -345,7 +373,7 @@ void list::deleteInPos(int pos) {
 
 }
 
-void list::deleteAtStart() {
+void simpleList::deleteAtStart() {
     if(firstNode->nextNode== nullptr){
         delete(firstNode->nextNode);
         firstNode = nullptr;
@@ -357,7 +385,7 @@ void list::deleteAtStart() {
     }
 }
 
-void list::appendAtStart(string op) {
+void simpleList::appendAtStart(string op) {
     if(firstNode == nullptr){
         firstNode = new node(op);
     } else {
@@ -365,7 +393,7 @@ void list::appendAtStart(string op) {
     }
 }
 
-void list::numToList(int num) {
+void simpleList::numToList(int num) {
     while (num!=0){
         int add = num%10;
         appendAtStart(add);
