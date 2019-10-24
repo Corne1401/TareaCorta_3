@@ -301,6 +301,75 @@ void updateCache(map<int, CacheNode> &cacheMemory, int &index, BSTTree &tree){
     }
 }
 
+
+void deleteClientHelper(const string& fullString, char delimiter, ofstream &file){
+    string data1;
+    string data2;
+    string data3;
+    int dataCount = 0;
+    for (auto x : fullString){
+        switch(dataCount){
+            case 0:
+                if(x==delimiter){
+                    //cout << data1 << endl;
+                    dataCount++;
+                } else {
+                    data1+=x;
+                }
+                break;
+            case 1:
+                if(x==delimiter){
+                    //cout << data2 << endl;
+                    dataCount++;
+                } else {
+                    data2+=x;
+                }
+                break;
+            case 2:
+                if(x==delimiter){
+                    //cout << data3 << endl;
+                    dataCount++;
+                } else {
+                    data3+=x;
+                }
+                break;
+            default:
+                dataCount=0;
+                data1 = "";
+                data2 = "";
+                data3 = "";
+                break;
+        }
+    }
+
+    try{
+        int data1Int = stoi(data1);
+        if(data3 == "0"){
+            file << fullString<<endl;
+        };
+    }catch (std::invalid_argument& e) {
+        cout << "******************************************************************************************************" << endl;
+        cout << "Number values could not be converted to integer for ids: " << data1 << data2 << endl;
+        cout << "******************************************************************************************************" << endl;
+    }
+}
+
+void deleteClient(){
+    string line;
+    ifstream arch1("../Out/newClients.txt");
+    ofstream purgedFile("../Out/purgedClients.txt");
+
+    while (getline(arch1, line)) {
+        if(!line.empty()){
+            deleteClientHelper(line, ';', purgedFile);
+        }
+    }
+    arch1.close();
+    
+}
+
+
+
 void getClientFromFileHelper(const string& fullString, char delimiter, int &index, int &count){
     string data1;
     string data2;
