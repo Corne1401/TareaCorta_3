@@ -1,5 +1,5 @@
-01;Francisco;0
-02;Jose;0
+01;Francisco;1
+02;Jose;1
 03;Kevin;0
 04;Mario;0
 101;Francisco;0
