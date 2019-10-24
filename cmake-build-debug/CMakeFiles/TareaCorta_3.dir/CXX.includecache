@@ -6,17 +6,41 @@
 
 #IncludeRegexTransform: 
 
-C:/GitHub_Projects/TareaCorta_3/Helpers/FileReader.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/BST.h
+cstdio
+-
+cstdlib
+-
+BSTNode.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/BSTNode.h
+
+C:/GitHub_Projects/TareaCorta_3/Helpers/BSTNode.h
+
+C:/GitHub_Projects/TareaCorta_3/Helpers/CacheNode.h
+string
+-
+utility
+-
+
+C:/GitHub_Projects/TareaCorta_3/Helpers/Helper.h
 iostream
 -
 fstream
 -
+BST.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/BST.h
+CacheNode.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/CacheNode.h
 
 C:/GitHub_Projects/TareaCorta_3/main.cpp
 iostream
 -
-fstream
+map
 -
-Helpers/FileReader.h
-C:/GitHub_Projects/TareaCorta_3/Helpers/FileReader.h
+Helpers/Helper.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/Helper.h
+Helpers/BST.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/BST.h
+Helpers/CacheNode.h
+C:/GitHub_Projects/TareaCorta_3/Helpers/CacheNode.h
 
