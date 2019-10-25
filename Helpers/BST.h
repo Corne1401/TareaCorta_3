@@ -29,7 +29,9 @@ public:
 
     static bool isIdOnTree(BSTNode *root, int key);
     static BSTNode *getClientById(BSTNode *root, int key);
-    static void deleteTree(BSTNode* node);
+
+    void _deleteTree(BSTNode* node);
+    void deleteTree(BSTNode** node_ref);
 };
 
 void BSTTree::inorder(BSTNode *root) {
@@ -153,14 +155,24 @@ BSTNode *BSTTree::getClientById(BSTNode *root, int key) {
     }
 }
 
-void BSTTree::deleteTree(BSTNode* node)
+/* This function is same as deleteTree()
+in the previous program */
+void BSTTree::_deleteTree(BSTNode* node)
 {
     if (node == nullptr) return;
 
     /* first delete both subtrees */
-    deleteTree(node->left);
-    deleteTree(node->right);
+    _deleteTree(node->left);
+    _deleteTree(node->right);
 
     /* then delete the node */
-    delete(node);
+//    cout << "Deleting node: " << node->key << endl;
+    free(node);
+}
+
+/* Deletes a tree and sets the root as NULL */
+void BSTTree::deleteTree(BSTNode** node_ref)
+{
+    _deleteTree(*node_ref);
+    *node_ref = nullptr;
 }

@@ -113,8 +113,13 @@ void loadBSTHelper(BSTTree &tree, const string& fullString, char delimiter, int 
 
     try{
         int data1Int = stoi(data1);
-        if(!tree.isIdOnTree(tree.root, data1Int)) {
-            tree.root = tree.insert(tree.root, data1Int, count);
+        if(count==19){
+            cout << "19!!!!";
+        }
+        if(data3=="0"){
+            if(!tree.isIdOnTree(tree.root, data1Int)) {
+                tree.root = tree.insert(tree.root, data1Int, count);
+            }
         }
     }catch (std::invalid_argument& e) {
         cout << "******************************************************************************************************" << endl;
@@ -183,11 +188,10 @@ void defaultCacheInitHelper(map<int, CacheNode> &cacheMemory, const string& full
     try{
         int data1Int = stoi(data1);
 
-
-
-
-        if (!check_key(cacheMemory, count) && cacheMemory.size()<20) {
-            cacheMemory.insert(make_pair(count, CacheNode(data1Int, data2)));
+        if(data3=="0"){
+            if (!check_key(cacheMemory, count) && cacheMemory.size()<20) {
+                cacheMemory.insert(make_pair(count, CacheNode(data1Int, data2)));
+            }
         }
     }catch (std::invalid_argument& e) {
         cout << "******************************************************************************************************" << endl;
@@ -215,7 +219,7 @@ void printCache(map<int, CacheNode> &cacheMemory){
     }
 }
 
-void updateCacheHelper(map<int, CacheNode> &cacheMemory, const string& fullString, char delimiter, int &index, int &count, int &countLines, BSTTree &tree){
+void updateCacheHelper(map<int, CacheNode> &cacheMemory, const string& fullString, char delimiter, int &index, int &count, int &countLines){
     string data1;
     string data2;
     string data3;
@@ -270,7 +274,7 @@ void updateCacheHelper(map<int, CacheNode> &cacheMemory, const string& fullStrin
     }
 }
 
-void updateCache(map<int, CacheNode> &cacheMemory, int &index, BSTTree &tree){
+void updateCache(map<int, CacheNode> &cacheMemory, int &index){
     string line;
     ifstream arch1("../Out/newClients.txt");
     int countLines = 0;
@@ -281,7 +285,7 @@ void updateCache(map<int, CacheNode> &cacheMemory, int &index, BSTTree &tree){
 
     while (getline(arch1, line)) {
         if(!line.empty()){
-            updateCacheHelper(cacheMemory, line, ';', index, count, countLines, tree);
+            updateCacheHelper(cacheMemory, line, ';', index, count, countLines);
             countLines++;
         }
     }
@@ -293,7 +297,7 @@ void updateCache(map<int, CacheNode> &cacheMemory, int &index, BSTTree &tree){
         ifstream arch2("../Out/newClients.txt");
         while (getline(arch2, line)) {
             if(!line.empty()){
-                updateCacheHelper(cacheMemory, line, ';', index, count, countLines, tree);
+                updateCacheHelper(cacheMemory, line, ';', index, count, countLines);
                 countLines++;
             }
         }
@@ -365,6 +369,7 @@ void purgeClient(){
         }
     }
     arch1.close();
+    purgedFile.close();
     remove("../Out/newClients.txt");
     rename("../Out/purgedClients.txt", "../Out/newClients.txt");
     
@@ -454,11 +459,11 @@ void findClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
                     auto client = cacheMemory.at(index);
                     cout << "Client found in Cache" << endl;
                     cout << "Client ID: " << client.id << " , Name: " << client.name << endl;
-                    updateCache(cacheMemory, index, tree);
+                    updateCache(cacheMemory, index);
                 } else {
                     cout << "Client found in file" << endl;
                     getClientFromFile(index);
-                    updateCache(cacheMemory, index, tree);
+                    updateCache(cacheMemory, index);
                 }
             } else {
                 cout << "ERROR. No such client with ID: " << clientId << endl;
@@ -473,21 +478,76 @@ void findClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
     }
 }
 
-void markAsDeletedInFileHelper(const string& fullString, char delimiter, int &index){
+void markAsDeletedInFileHelper(const string& fullString, char delimiter, int &clientId, ofstream &newFile){
+    string data1;
+    string data2;
+    string data3;
+    int dataCount = 0;
+    for (auto x : fullString){
+        switch(dataCount){
+            case 0:
+                if(x==delimiter){
+                    //cout << data1 << endl;
+                    dataCount++;
+                } else {
+                    data1+=x;
+                }
+                break;
+            case 1:
+                if(x==delimiter){
+                    //cout << data2 << endl;
+                    dataCount++;
+                } else {
+                    data2+=x;
+                }
+                break;
+            case 2:
+                if(x==delimiter){
+                    //cout << data3 << endl;
+                    dataCount++;
+                } else {
+                    data3+=x;
+                }
+                break;
+            default:
+                dataCount=0;
+                data1 = "";
+                data2 = "";
+                data3 = "";
+                break;
+        }
+    }
 
+    try{
+        int data1Num = stoi(data1);
+        if(data1Num==clientId){
+            newFile << data1 << ";" << data2 << ";" << "1" << endl;
+        } else {
+            newFile << fullString << endl;
+        }
+
+    }catch (std::invalid_argument& e) {
+        cout << "******************************************************************************************************" << endl;
+        cout << "Number values could not be converted to integer for ids: " << data1 << data2 << endl;
+        cout << "******************************************************************************************************" << endl;
+    }
 }
 
 
 void markAsDeletedInFile(int &clientId){
     string line;
     ifstream arch1("../Out/newClients.txt");
+    ofstream newFile("../Out/file.txt");
 
     while (getline(arch1, line)) {
         if(!line.empty()){
-            markAsDeletedInFileHelper(line, ';', clientId);
+            markAsDeletedInFileHelper(line, ';', clientId, newFile);
         }
     }
+    newFile.close();
     arch1.close();
+    remove("../Out/newClients.txt");
+    rename("../Out/file.txt", "../Out/newClients.txt");
 }
 
 void deleteClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
@@ -502,18 +562,127 @@ void deleteClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
                 markAsDeletedInFile(clientId);
 
                 //Proceed to re-index tree and cache
+                cout << "Re-Indexing cache and tree..." << endl;
                 cacheMemory.clear();
-                tree.deleteTree(tree.root);
+                tree.deleteTree(&tree.root);
+                loadBST(tree);
                 defaultCacheInit(cacheMemory);
+                cout << "Finished re-indexing" << endl;
             } else {
                 cout << "ERROR. No such client with ID: " << clientId << endl;
             }
-
-
-
             break;
         } catch (std::invalid_argument &e){
 
+        }
+    }
+}
+
+void insertOnFilesHelper(const string& fullString, char delimiter, ofstream &newFile, ofstream &newFile2, int &indexCount){
+    string data1;
+    string data2;
+    string data3;
+    int dataCount = 0;
+    for (auto x : fullString){
+        switch(dataCount){
+            case 0:
+                if(x==delimiter){
+                    //cout << data1 << endl;
+                    dataCount++;
+                } else {
+                    data1+=x;
+                }
+                break;
+            case 1:
+                if(x==delimiter){
+                    //cout << data2 << endl;
+                    dataCount++;
+                } else {
+                    data2+=x;
+                }
+                break;
+            case 2:
+                if(x==delimiter){
+                    //cout << data3 << endl;
+                    dataCount++;
+                } else {
+                    data3+=x;
+                }
+                break;
+            default:
+                dataCount=0;
+                data1 = "";
+                data2 = "";
+                data3 = "";
+                break;
+        }
+    }
+
+    try{
+        newFile << fullString << endl;
+        newFile2 << data1 << ";" << data2 << ";" << to_string(indexCount) << endl;
+        indexCount++;
+    }catch (std::invalid_argument& e) {
+        cout << "******************************************************************************************************" << endl;
+        cout << "Number values could not be converted to integer for ids: " << data1 << data2 << endl;
+        cout << "******************************************************************************************************" << endl;
+    }
+}
+
+void insertOnFiles(int clientId, string &clientName){
+    string line;
+    ifstream arch1("../Out/newClients.txt");
+    ifstream index("../Out/tree.txt");
+    ofstream newFile("../Out/file.txt");
+    ofstream newFile2("../Out/file2.txt");
+    int indexCount = 0;
+    while (getline(arch1, line)) {
+        if(!line.empty()){
+            insertOnFilesHelper(line, ';',  newFile, newFile2, indexCount);
+        }
+    }
+    newFile << to_string(clientId)+";"+clientName+";0";
+    newFile2 << to_string(clientId)+";"+clientName+";"+to_string(indexCount) << endl;
+
+    newFile.close();
+    newFile2.close();
+    arch1.close();
+    index.close();
+    remove("../Out/newClients.txt");
+    remove("../Out/indices.txt");
+    rename("../Out/file.txt", "../Out/newClients.txt");
+    rename("../Out/file2.txt", "../Out/indices.txt");
+}
+
+void insertClient(BSTTree &tree, map<int, CacheNode> &cacheMemory){
+    string clientIdString;
+    while (true){
+        try {
+            cout << "Type Client id to insert (numeric): " << endl;
+            cin >> clientIdString;
+            int clientId = stoi(clientIdString);
+
+            if(tree.isIdOnTree(tree.root, clientId)){
+                cout << "Client already present" << endl;
+            } else {
+                string clientName;
+                cout << "Type client name: " << endl;
+                cin >> clientName;
+                insertOnFiles(clientId, clientName);
+
+                //Proceed to re-index tree and cache
+                cout << "Re-Indexing cache and tree..." << endl;
+                cacheMemory.clear();
+                tree.deleteTree(&tree.root);
+                loadBST(tree);
+                tree.inorder(tree.root);
+                int index = tree.getClientById(tree.root, clientId)->index;
+                updateCache(cacheMemory, index);
+                cout << "Finished re-indexing" << endl;
+            }
+            break;
+        } catch (std::invalid_argument &e){
+            cout << "Non numeric inserted" << endl;
         }
     }
 }

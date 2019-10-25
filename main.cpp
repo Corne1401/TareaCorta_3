@@ -40,9 +40,9 @@ int main() {
         } else if(op=="3"){
             printCache(cacheMemory);
         } else if(op=="4"){
-            //TODO
+            insertClient(tree, cacheMemory);
         } else if (op=="5"){
-            deleteClient(cacheMemory, tree);
+            deleteClient(tree, cacheMemory);
         } else if(op=="6"){
             purgeClient();
         } else if(op=="7"){

@@ -59,3 +59,5 @@
 412;Álvaro;0
 439;Manuel;0
 934;Juan;0
+1000;gg;0
+34;Jorge;0
